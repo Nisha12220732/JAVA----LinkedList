@@ -1,0 +1,143 @@
+package LinkedList;
+
+import java.util.Scanner;
+
+public class Linkedlst1 {
+    //here we are defining a user defined function Node to create our linked list
+    public static class Node{
+        int data;
+        Node next;
+        Node(int data){
+            this.data = data;
+            next = null;
+        }
+    }
+    //Here we are actually defining a class named linked list which has all the functionalities
+    public static class linkedlist{
+        Node head = null;
+        Node tail = null;
+
+    //Humai neeche waale functions mai kuch recieve karne ki zaroorat nahi hai kyuki humaare paas har time head tail available hai iss function mai
+
+        public void insertAtEnd(int d){
+            Node temp = new Node(d);
+            if(head == null){
+                head = temp;
+            }
+            else{
+                tail.next = temp;
+            }
+            tail= temp;
+
+        }
+        public void insertAtHead(int d){
+            Node temp = new Node(d);
+            if(head == null){
+                head = temp;
+                tail = head;
+            }
+            else{
+                temp.next = head;
+                head = temp;
+            }
+        }
+
+        public void insert(int index , int d){
+            int count = 0;
+            Node newnode = new Node(d);
+            Node temp = head;
+            if(temp == null || index == 0){
+                insertAtHead(d);
+            }
+            else if(temp == tail || index == linkedlistsize() - 1){
+                insertAtEnd(d);
+            }
+            else{
+                while(temp != null && count+1 != index){
+                    temp = temp.next;
+                    count++;
+                }
+                newnode.next = temp.next;
+                temp.next = newnode;
+            }
+        }
+
+        public int linkedlistsize(){
+            int count =0;
+            Node temp = head;
+            while(temp != null){
+                count++;
+                temp = temp.next;
+            }
+            return count;
+        }
+
+        public void display(){
+            Node temp = head;
+            if(temp == null){
+                System.out.println("Your list is empty");
+            }
+            while(temp != null){
+                System.out.print("|" + temp.data + "| -->");
+                temp = temp.next;
+            }
+            System.out.print("null");
+        }
+
+    }
+    public static void main(String[] args) {
+        linkedlist ll = new linkedlist();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Chart: ");
+        System.out.println("1 : Enter to insert a Node at Head.");
+        System.out.println("2 : Enter to insert a Node at Tail.");
+        System.out.println("3 : Enter to insert a Node at some index.");
+        System.out.println("4 : Enter to display the LinkedList.");
+        System.out.println("5 : Enter to print the size of LinkedList");
+        System.out.println("Choose from the chart: ");
+        int x = sc.nextInt();
+        while(x >0 && x<6) {
+            switch (x){
+            case 1:
+                System.out.println("Enter node data: ");
+                int d = sc.nextInt();
+                ll.insertAtHead(d);
+                System.out.println("Choose from the chart: ");
+                x = sc.nextInt();
+                break;
+            case 2:
+                System.out.println("Enter node data: ");
+                d = sc.nextInt();
+                ll.insertAtEnd(d);
+                System.out.println("Choose from the chart: ");
+                x = sc.nextInt();
+                break;
+            case 3:
+                System.out.println("Enter node data: ");
+                d = sc.nextInt();
+                System.out.println("Enter index: ");
+                int e = sc.nextInt();
+                ll.insert(e,d);
+                System.out.println("Choose from the chart: ");
+                x = sc.nextInt();
+                break;
+            case 4:
+                ll.display();
+                System.out.println();
+                System.out.println("Choose from the chart: ");
+                x = sc.nextInt();
+                break;
+            case 5:
+                System.out.println(ll.linkedlistsize());
+                System.out.println("Choose from the chart: ");
+                x = sc.nextInt();
+                break;
+            default:
+                System.out.println("Programm ended ");
+        }
+        }
+        System.out.println("Program ended ");
+
+    }
+
+}
